@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    />
+    <title>Terminal Profile | Your Name</title>
+    <meta
+      name="description"
+      content="Personal profile page with links to blog, social media, and contact information."
+    />
+    <!-- Preload font for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <!-- Open Graph tags for better sharing -->
+    <meta property="og:title" content="Terminal Profile | Your Name" />
+    <meta
+      property="og:description"
+      content="Personal profile page with links to portfolio, projects, and contact information."
+    />
+    <meta property="og:type" content="website" />
+
+    <style>
+      /* Base styles */
+      :root {
+        /* Dark theme (default) */
+        --terminal-bg: 215, 20%, 7%;
+        --terminal-header: 216, 15%, 12%;
+        --terminal-text: 215, 20%, 95%;
+        --terminal-prompt: 163, 90%, 50%;
+        --terminal-accent: 199, 100%, 65%;
+      }
+
+      /* Light theme */
+      [data-theme="light"] {
+        --terminal-bg: 0, 0%, 98%;
+        --terminal-header: 0, 0%, 90%;
+        --terminal-text: 215, 30%, 15%;
+        --terminal-prompt: 163, 80%, 30%;
+        --terminal-accent: 199, 95%, 35%;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        font-family: "JetBrains Mono", monospace;
+        background-color: hsl(var(--terminal-bg));
+        color: hsl(var(--terminal-text));
+        overflow: hidden;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+      }
+
+      /* Terminal container */
+      .terminal-container {
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+
+      .terminal {
+        width: 100%;
+        max-width: 40rem;
+        background-color: hsl(var(--terminal-bg));
+        border: 1px solid hsl(var(--terminal-header));
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.3),
+          0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      /* Terminal header */
+      .terminal-header {
+        background-color: hsl(var(--terminal-header));
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .terminal-buttons {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .terminal-button {
+        width: 0.75rem;
+        height: 0.75rem;
+        border-radius: 50%;
+      }
+
+      .button-red {
+        background-color: #ff5f56;
+      }
+      .button-yellow {
+        background-color: #ffbd2e;
+      }
+      .button-green {
+        background-color: #27c93f;
+      }
+
+      .terminal-title {
+        font-size: 0.875rem;
+        opacity: 0.7;
+      }
+
+      /* Terminal content */
+      .terminal-content {
+        padding: 1.25rem 2rem;
+      }
+
+      /* Command line styles */
+      .command-line {
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .prompt {
+        color: hsl(var(--terminal-prompt));
+        margin-right: 0.5rem;
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 0.5rem;
+        height: 1rem;
+        background-color: hsl(var(--terminal-prompt));
+        margin-left: 2px;
+        animation: blink 1s step-end infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* Profile styles */
+      .profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      @media (min-width: 640px) {
+        .profile {
+          flex-direction: row;
+          align-items: flex-start;
+        }
+      }
+
+      .avatar {
+        width: 7rem;
+        height: 7rem;
+        border-radius: 50%;
+        border: 2px solid hsl(var(--terminal-prompt));
+        object-fit: cover;
+        margin-bottom: 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .avatar {
+          margin-bottom: 0;
+          margin-right: 1.5rem;
+        }
+      }
+
+      .profile-info {
+        text-align: center;
+      }
+
+      @media (min-width: 640px) {
+        .profile-info {
+          text-align: left;
+        }
+      }
+
+      .name {
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+      }
+
+      .title {
+        color: hsl(var(--terminal-prompt));
+        margin-bottom: 0.75rem;
+      }
+
+      .bio {
+        font-size: 0.875rem;
+        opacity: 0.8;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+
+      /* Links grid */
+      .links-title {
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .links-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        margin-top: 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .links-grid {
+          grid-template-columns: repeat(5, 1fr);
+        }
+      }
+
+      .link-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem;
+        border: 1px solid hsl(var(--terminal-header));
+        border-radius: 0.375rem;
+        color: hsl(var(--terminal-text));
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .link-item:hover {
+        background-color: hsl(var(--terminal-header));
+        border-color: hsl(var(--terminal-prompt));
+      }
+
+      .link-item i {
+        margin-right: 0.5rem;
+      }
+
+      /* Top action bar */
+      .top-actions {
+        position: fixed;
+        top: 0;
+        right: 0;
+        display: flex;
+        padding: 1rem;
+        z-index: 100;
+      }
+
+      .theme-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: hsl(var(--terminal-header));
+        color: hsl(var(--terminal-text));
+        border: 1px solid hsl(var(--terminal-prompt));
+        border-radius: 0.375rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .theme-toggle:hover {
+        background-color: hsla(var(--terminal-header), 0.8);
+      }
+
+      /* Status line */
+      .status-line {
+        margin-top: 1.5rem;
+        display: flex;
+        align-items: center;
+        font-size: 0.875rem;
+        color: hsl(var(--terminal-accent));
+        opacity: 0.7;
+      }
+
+      .status-indicator {
+        display: inline-block;
+        margin-right: 0.5rem;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Actions Bar -->
+    <div class="top-actions">
+      <button id="theme-toggle" class="theme-toggle">
+        <i class="ri-moon-line" id="theme-icon"></i>
+        <span id="theme-text"></span>
+      </button>
+    </div>
+
+    <div class="terminal-container">
+      <div class="terminal">
+        <!-- Terminal Header -->
+        <div class="terminal-header">
+          <div class="terminal-buttons">
+            <div class="terminal-button button-red"></div>
+            <div class="terminal-button button-yellow"></div>
+            <div class="terminal-button button-green"></div>
+          </div>
+          <div class="terminal-title">profile.sh</div>
+          <div style="width: 1rem"></div>
+          <!-- Empty space for balance -->
+        </div>
+
+        <!-- Terminal Content -->
+        <div class="terminal-content">
+          <!-- Command Line Intro -->
+          <div class="command-line">
+            <span class="prompt">$</span>
+            <span id="command-text"></span>
+            <span id="cursor" class="cursor"></span>
+          </div>
+
+          <!-- Profile Container -->
+          <div class="profile">
+            <!-- Profile Photo -->
+            <img
+              src="https://ui-avatars.com/api/?name=Hasan+Alkhatib&background=10B981&color=fff&size=150"
+              alt="Profile Photo"
+              class="avatar"
+              id="profile-photo"
+            />
+
+            <!-- Profile Text Information -->
+            <div class="profile-info">
+              <div class="name" id="profile-name">Hasan Alkhatib</div>
+              <div class="title" id="profile-title">
+                Software Engineer. Builder of resilient systems. Explorer of AI
+                agents.
+              </div>
+              <div class="bio" id="profile-bio">
+                Specializes in cloud infrastructure, SRE, DevOps, AI/ML, and
+                IoT. Proficient in Go, Python, and Java. Currently exploring the
+                integration of AI agents into robust systems. Builds reliable
+                solutions. Leads with integrity. Family man.
+              </div>
+            </div>
+          </div>
+
+          <!-- Command Line for Contact -->
+          <div class="links-title">
+            <span class="prompt">$</span>
+            <span>contact --options</span>
+          </div>
+
+          <!-- Contact Links -->
+          <div class="links-grid" id="links-container">
+            <!-- Links will be populated by JavaScript -->
+          </div>
+
+          <!-- Command Line Status -->
+          <div class="status-line">
+            <span class="status-indicator">■</span>
+            <span>Ready for new connections</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Profile data configuration
+      const profileData = {
+        name: "Hasan Alkhatib",
+        title:
+          "Software Engineer. Builder of resilient systems. Explorer of AI agents.",
+        bio: "Specializes in cloud infrastructure, SRE, DevOps, AI/ML, and IoT. Proficient in Go, Python, and Java. Currently exploring the integration of AI agents into robust systems. Builds reliable solutions. Leads with integrity. Family man.",
+        photoUrl:
+          "https://gravatar.com/avatar/973a7e923b392e48863f29db367de545?size=256",
+        links: [
+          {
+            name: "Blog",
+            url: "https://blog.alkhatib.tech",
+            icon: "ri-article-line",
+          },
+          {
+            name: "LinkedIn",
+            url: "https://linkedin.com/in/hasankhatib",
+            icon: "ri-linkedin-fill",
+          },
+          {
+            name: "GitHub",
+            url: "https://github.com/hasankhatib",
+            icon: "ri-github-fill",
+          },
+          {
+            name: "Email",
+            url: "mailto:hasanalkhatib@duck.com",
+            icon: "ri-mail-line",
+          },
+        ],
+      };
+
+      // Type animation for the command
+      function typeCommand() {
+        const commandText = document.getElementById("command-text");
+        const cursor = document.getElementById("cursor");
+        const fullCommand = "./load_profile.sh";
+        let index = 0;
+
+        const typingInterval = setInterval(() => {
+          if (index < fullCommand.length) {
+            commandText.textContent += fullCommand.charAt(index);
+            index++;
+          } else {
+            clearInterval(typingInterval);
+            setTimeout(() => {
+              cursor.style.display = "none";
+            }, 500);
+          }
+        }, 50);
+      }
+
+      // Load profile data
+      function loadProfileData() {
+        // Set basic profile info
+        document.getElementById("profile-name").textContent = profileData.name;
+        document.getElementById("profile-title").textContent =
+          profileData.title;
+        document.getElementById("profile-bio").textContent = profileData.bio;
+        document.getElementById("profile-photo").src = profileData.photoUrl;
+        document.getElementById("profile-photo").alt =
+          `${profileData.name}'s Profile Photo`;
+
+        // Create links
+        const linksContainer = document.getElementById("links-container");
+        linksContainer.innerHTML = ""; // Clear container first
+        profileData.links.forEach((link) => {
+          const linkElement = document.createElement("a");
+          linkElement.href = link.url;
+          linkElement.className = "link-item";
+          linkElement.target = "_blank";
+          linkElement.rel = "noopener noreferrer";
+
+          const icon = document.createElement("i");
+          icon.className = link.icon;
+
+          const text = document.createElement("span");
+          text.textContent = link.name;
+
+          linkElement.appendChild(icon);
+          linkElement.appendChild(text);
+          linksContainer.appendChild(linkElement);
+        });
+      }
+
+      // Theme toggle functionality
+      function setupThemeToggle() {
+        const themeToggle = document.getElementById("theme-toggle");
+        const themeIcon = document.getElementById("theme-icon");
+        const themeText = document.getElementById("theme-text");
+
+        // Check if theme preference is stored in localStorage
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "light") {
+          document.documentElement.setAttribute("data-theme", "light");
+          themeIcon.className = "ri-sun-line";
+          themeText.textContent = "";
+        }
+
+        themeToggle.addEventListener("click", () => {
+          const currentTheme =
+            document.documentElement.getAttribute("data-theme");
+
+          if (currentTheme === "light") {
+            // Switch to dark theme
+            document.documentElement.removeAttribute("data-theme");
+            localStorage.setItem("theme", "dark");
+            themeIcon.className = "ri-moon-line";
+            themeText.textContent = "";
+          } else {
+            // Switch to light theme
+            document.documentElement.setAttribute("data-theme", "light");
+            localStorage.setItem("theme", "light");
+            themeIcon.className = "ri-sun-line";
+            themeText.textContent = "";
+          }
+        });
+      }
+
+      // Initialize the page
+      document.addEventListener("DOMContentLoaded", () => {
+        // Set dark mode by default
+        document.documentElement.removeAttribute("data-theme");
+        localStorage.setItem("theme", "dark");
+
+        typeCommand();
+        loadProfileData();
+        setupThemeToggle();
+      });
+    </script>
+  </body>
+</html>
